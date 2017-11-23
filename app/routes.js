@@ -9,9 +9,7 @@ import NotFoundPage from './components/NotFoundPage';
 console.log(App);
 
 const routes = (
-    <Route path="/" component={App}>
-        <Route path="*" component={NotFoundPage} />
-    </Route>
+    <Route path="/" component={App}></Route>
 );
 
 
