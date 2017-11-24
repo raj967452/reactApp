@@ -8,7 +8,6 @@ import { renderToString } from 'react-dom/server';
 import { match, RouterContext } from 'react-router';
 import routes from './routes';
 import NotFoundPage from './components/NotFoundPage';
-
 // initialize the server and configure support for ejs templates
 var app = new Express();
 var server = new Server(app);
@@ -63,5 +62,5 @@ server.listen(port, err => {
   if (err) {
     return console.error(err);
   }
-  console.info(`Server running on localhost:${port} [${env}]`);
+  console.info(`Server running on http://localhost:${port} [${env}]`);
 });

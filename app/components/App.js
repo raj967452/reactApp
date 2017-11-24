@@ -5,9 +5,9 @@ import { Link } from 'react-router';
 
 import createReactClass from 'create-react-class';
 
-import samples from './sample-data';
+import samples from '../sample-data';
 
-const  App = createReactClass({
+const App = createReactClass({
     getInitialState: function(){
         return {
             "humans" : {},
@@ -41,7 +41,6 @@ const  App = createReactClass({
 
 const  InboxPane = createReactClass({
     renderConvoSum : function(human){
-        console.log(human);
         return <InboxItem key={human} index={human} details={this.props.humans[human]} />
     },
     render() {
@@ -74,7 +73,6 @@ const  InboxItem = createReactClass({
         return lastMessage.who + ' said: "' + lastMessage.text + '" @ ' + lastMessage.time.toDateString();
     },
     render: function() {
-        debugger;
         return (
             <tr>
                 <td><Link to={'/conversation/'+ encodeURIComponent(this.props.index)}>{this.messageSummary(this.props.details.conversations)}</Link></td>
@@ -147,4 +145,4 @@ const  Store = createReactClass({
     }
 });
 
-module.exoprts = App;
+export default App;

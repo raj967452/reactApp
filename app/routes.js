@@ -1,15 +1,15 @@
 'use strict';
 
 import React from 'react';
-import {Route} from 'react-router';
+import {Route} from 'react-router-dom';
 
-import App from './App';
+import App from './components/App';
 import NotFoundPage from './components/NotFoundPage';
 
-console.log(App);
-
 const routes = (
-    <Route path="/" component={App}></Route>
+    <Route path="/" component={App}>
+        <Route path="/conversation:id" component={App.ConversationsPane}></Route>
+    </Route>
 );
 
 
