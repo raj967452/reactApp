@@ -30,19 +30,16 @@ app.get('*', (req, res) => {
       }
 
       // in case of redirect propagate the redirect to the browser
-      if (redirectLocation) {
-        debugger;
+      if (redirectLocation) {        
         return res.redirect(302, redirectLocation.pathname + redirectLocation.search);
       }
 
       // generate the React markup for the current route
       let markup;
-      if (renderProps) {
-        debugger;
+      if (renderProps) {        
         // if the current route matched we have renderProps
         markup = renderToString(<RouterContext {...renderProps}/>);
       } else {
-        debugger;
         // otherwise we can render a 404 page
         markup = renderToString(<NotFoundPage/>);
         
@@ -64,3 +61,7 @@ server.listen(port, err => {
   }
   console.info(`Server running on http://localhost:${port} [${env}]`);
 });
+
+server: {
+  historyApiFallback: true
+};

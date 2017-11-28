@@ -4,8 +4,11 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 
 import createReactClass from 'create-react-class';
+import ConversationPane from './ConversationsPane';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 
 import samples from '../sample-data';
+
 
 const App = createReactClass({
     getInitialState: function(){
@@ -15,7 +18,13 @@ const App = createReactClass({
         }
     },
     loadSampleData: function(){
-        this.setState(samples);
+        this.setState(samples);        
+    },
+    // user navigate to a /conversation
+    componentWillMount: function(){
+        if('human' in this.props.params){
+            this.loadSampleData();
+        }
     },
     render() {
         return (
@@ -65,6 +74,7 @@ const  InboxPane = createReactClass({
 });
 
 const  InboxItem = createReactClass({
+    mixins: [PureRenderMixin],
     sortByDate: function(a, b){
         return a.time>b.time ? -1 : a.time<b.time ? 1 : 0;
     },    
@@ -83,34 +93,6 @@ const  InboxItem = createReactClass({
     }
 });
 
-
-const  ConversationsPane = createReactClass({
-    loadSampleData: function(human){
-        this.state({conversation: samples.humans[human].conversations})
-    },
-    renderMessage: function(val){
-      return <Message who={val.who} text={val.text} key={val.time.getTime()} />;
-    },
-    render: function(){
-        return (
-            <div id="conversation-pane">
-                <h1>Conversation</h1>
-                <h3>{this.props.params.human}</h3>
-                <div id="message">
-                    {this.state.conversations.map(this.renderMessage)}
-                </div>
-            </div>
-        )
-    }
-});
-
-const  Message = createReactClass({
-    render: function(){
-        return <p>{this.props.who} said: "{this.props.text}"</p>
-    }
-});
-
-
 const  StorePane =createReactClass({
     renderStore: function(store){
         return <Store key={store} index={store} details={this.props.stores[store]} />
@@ -128,6 +110,7 @@ const  StorePane =createReactClass({
 });
 
 const  Store = createReactClass({
+    mixins: [PureRenderMixin],
     getCount: function(status){
         return this.props.details.orders.filter(function(n){
             return n.status === status
