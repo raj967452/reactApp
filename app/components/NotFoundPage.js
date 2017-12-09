@@ -1,10 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-const createReactClass = require('create-react-class');
-
-
-const NotFoundPage = createReactClass({
+class NotFoundPage extends React.Component{
     render() {
         return (
             <div className="not-found">
@@ -14,8 +11,7 @@ const NotFoundPage = createReactClass({
             </div>
         )
     }
-})
-
+}
 
 export default NotFoundPage;
 

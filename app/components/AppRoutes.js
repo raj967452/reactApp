@@ -3,15 +3,18 @@
 import React from 'react';
 import { Router, browserHistory } from 'react-router';
 import routes from '../routes';
+import autobind from 'react-autobind';
 
-const createReactClass = require('create-react-class');
-
-const  AppRoutes = createReactClass({
+class AppRoutes extends React.Component{
+  constructor(props){
+    super(props);
+    autobind(this);
+  }
     render() {
       return (
         <Router history={browserHistory} routes={routes} onUpdate={() => window.scrollTo(0, 0)}/>
       );
     }
-});
+};
 
 export default AppRoutes;

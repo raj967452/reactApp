@@ -10,7 +10,8 @@ module.exports = {
 		path: path.join(__dirname, 'app', 'static', 'js'),
     publicPath: "/js/",
 		filename: 'bundle.js'
-	},
+  },
+  
 	watch: true,
 	module: {
 		loaders: [
@@ -22,7 +23,23 @@ module.exports = {
 					cacheDirectory: 'babel_cache',
 					presets: debug ? ['react', 'es2015', 'react-hmre'] : ['react', 'es2015']
 				}
-			}
+			},
+			{
+        test: /\.html$/,
+        loader: "file-loader?name=[name].[ext]",
+      },
+      {
+        test: /\.css$/, 
+        loader: "style-loader!css-loader" 
+      },
+      { 
+        test: /\.png$/,
+        loader: 'url-loader?limit=100000'
+      },
+      { 
+        test: /\.jpg$/,
+        loader: 'file-loader'
+      }
 		]
 	},
 	devServer: {

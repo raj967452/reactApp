@@ -1,31 +1,36 @@
+'use strict';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 
-import createReactClass from 'create-react-class';
-import ConversationPane from './ConversationsPane';
 import PureRenderMixin from 'react-addons-pure-render-mixin';
+import autoBind from 'react-autobind';
 
 import samples from '../sample-data';
 
+import InboxPane from './InboxPane';
+import StorePane from './StorePane';
 
-const App = createReactClass({
-    getInitialState: function(){
-        return {
+class App extends React.Component{
+    constructor(props){
+        super(props);
+        autoBind(this);
+
+        this.state = {
             "humans" : {},
             "stores" : {}
         }
-    },
-    loadSampleData: function(){
+    }
+    loadSampleData(){
         this.setState(samples);        
-    },
+    }
     // user navigate to a /conversation
-    componentWillMount: function(){
+    componentWillMount(){
         if('human' in this.props.params){
             this.loadSampleData();
         }
-    },
+    }
     render() {
         return (
             <div>
@@ -46,86 +51,6 @@ const App = createReactClass({
             </div>
         )
     }
-});
-
-const  InboxPane = createReactClass({
-    renderConvoSum : function(human){
-        return <InboxItem key={human} index={human} details={this.props.humans[human]} />
-    },
-    render() {
-        return (
-            <div id="inbox-pane">
-                <h1>Inbox</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Chat Received</th>
-                            <th>Name</th>
-                            <th>Status</th>                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {Object.keys(this.props.humans).map(this.renderConvoSum)}                        
-                    </tbody>
-                </table>
-            </div>
-        )
-    }
-});
-
-const  InboxItem = createReactClass({
-    mixins: [PureRenderMixin],
-    sortByDate: function(a, b){
-        return a.time>b.time ? -1 : a.time<b.time ? 1 : 0;
-    },    
-    messageSummary: function(conversations){
-        var lastMessage = conversations.sort(this.sortByDate)[0];
-        return lastMessage.who + ' said: "' + lastMessage.text + '" @ ' + lastMessage.time.toDateString();
-    },
-    render: function() {
-        return (
-            <tr>
-                <td><Link to={'/conversation/'+ encodeURIComponent(this.props.index)}>{this.messageSummary(this.props.details.conversations)}</Link></td>
-                <td>{this.props.index}</td>
-                <td>{this.props.details.orders.sort(this.sortByDate)[0].status} </td>                
-            </tr>
-        )
-    }
-});
-
-const  StorePane =createReactClass({
-    renderStore: function(store){
-        return <Store key={store} index={store} details={this.props.stores[store]} />
-    },
-    render: function(){
-        return (
-            <div id="stores-pane">
-                <h1>Stores & Ovens</h1>
-                <ul>
-                    {Object.keys(this.props.stores).map(this.renderStore)}
-                </ul>
-            </div>
-        )
-    }
-});
-
-const  Store = createReactClass({
-    mixins: [PureRenderMixin],
-    getCount: function(status){
-        return this.props.details.orders.filter(function(n){
-            return n.status === status
-        }).length;
-    },
-    render: function(){
-        return(
-            <li>
-                <p>{this.props.index}</p>
-                <p>Order Confirmed: {this.getCount('Confirmed')}</p>
-                <p>Order In The Oven: {this.getCount('In The Oven')}</p>
-                <p>Order Delivered: {this.getCount('Delivered')}</p>
-            </li>
-        )
-    }
-});
+};
 
 export default App;
