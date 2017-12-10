@@ -47,3 +47,5 @@ class ConversationsPane extends React.Component{
 };
 
 export default ConversationsPane;
+
+/*<a href='https://join.skype.com/bot/5e3d488c-b6d8-485e-ab38-ee4cf2271b12'><img src='https://dev.botframework.com/Client/Images/Add-To-Skype-Buttons.png'/></a>*/
