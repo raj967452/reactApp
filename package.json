@@ -2,11 +2,11 @@
   "name": "react-study",
   "version": "1.0.0",
   "description": "",
-  "main": "app/server.js",
+  "main": "index.js",
   "private": true,
   "homepage": "https://raj967452.github.io/reactApp",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node_modules/.bin/babel-node --presets react,es2015 app/server.js",
+    "start": "cross-env NODE_ENV=production node_modules/.bin/babel-node --presets react,es2015 index.js",
     "start-dev": "npm run start-dev-hmr",
     "start-dev-single-page": "node_modules/.bin/http-server app/static",
     "start-dev-hmr": "node_modules/.bin/webpack-dev-server --progress --inline --hot --open",

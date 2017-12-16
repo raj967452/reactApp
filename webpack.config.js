@@ -49,7 +49,7 @@ module.exports = {
 		compress: true,
 		port:8080,
 	  historyApiFallback: {
-      index: '/index-static.html'
+      index: '/index.html'
     }
 	},
   plugins: debug ? [] : [
